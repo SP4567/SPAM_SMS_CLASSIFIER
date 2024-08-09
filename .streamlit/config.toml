@@ -1,0 +1,30 @@
+# .streamlit/config.toml
+
+# Server Configuration
+[server]
+headless = true
+port = 5000
+enableCORS = false
+enableXsrfProtection = false
+
+# Theme Configuration
+[theme]
+primaryColor = "#F63366"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+font = "sans serif"
+
+# General Configuration
+[general]
+logLevel = "info"
+
+# Browser Configuration
+[browser]
+gatherUsageStats = true
+serverAddress = "localhost"
+serverPort = 5000
+
+# Experimental Features
+[experimental]
+showDeveloperTools = false
