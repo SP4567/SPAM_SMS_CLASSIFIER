@@ -5,7 +5,14 @@ from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 import string
 from tensorflow.keras.models import load_model
+import os 
+# Define the directory where NLTK data should be downloaded
+nltk_data_dir = '/home/appuser/nltk_data'
 
+# Ensure the directory exists
+os.makedirs(nltk_data_dir, exist_ok=True)
+
+# Download stopwords to the specified directory
 nltk.download('stopwords', download_dir=nltk_data_dir)
 
 # Function to transform the input text
