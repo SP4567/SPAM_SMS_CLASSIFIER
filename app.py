@@ -6,6 +6,8 @@ from nltk.stem.porter import PorterStemmer
 import string
 from tensorflow.keras.models import load_model
 import os 
+
+nltk.download('punkt')
 # Define the directory where NLTK data should be downloaded
 nltk_data_dir = '/home/appuser/nltk_data'
 
