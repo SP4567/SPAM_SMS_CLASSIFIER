@@ -6,6 +6,8 @@ from nltk.stem.porter import PorterStemmer
 import string
 from tensorflow.keras.models import load_model
 
+nltk.download('stopwords', download_dir=nltk_data_dir)
+
 # Function to transform the input text
 def transform_text(text):
     text = text.lower()
