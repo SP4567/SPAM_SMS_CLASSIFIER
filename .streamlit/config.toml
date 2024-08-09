@@ -3,7 +3,7 @@
 # Server Configuration
 [server]
 headless = true
-port = 5000
+port = 8501
 enableCORS = false
 enableXsrfProtection = false
 
@@ -23,7 +23,7 @@ logLevel = "info"
 [browser]
 gatherUsageStats = true
 serverAddress = "localhost"
-serverPort = 5000
+serverPort = 8501
 
 # Experimental Features
 [experimental]
