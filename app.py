@@ -36,7 +36,15 @@ def transform_text(text):
     return " ".join(y)
 
 # Load vectorizer and model
-vectorizer = pickle.load(open('vectorizer (3).pkl', 'rb'))
+# Get the directory of the current script
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Build the full path to the vectorizer file
+vectorizer_path = os.path.join(base_dir, 'vectorizer (3).pkl')
+
+# Load the vectorizer
+with open(vectorizer_path, 'rb') as f:
+    vectorizer = pickle.load(f)
 model = load_model('Spam_classifier.h5')
 
 # Streamlit UI
