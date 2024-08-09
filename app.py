@@ -45,7 +45,19 @@ vectorizer_path = os.path.join(base_dir, 'vectorizer (3).pkl')
 # Load the vectorizer
 with open(vectorizer_path, 'rb') as f:
     vectorizer = pickle.load(f)
-model = load_model('Spam_classifier.h5')
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Build the full path to the model file
+model_path = os.path.join(base_dir, 'Spam_classifier.h5')
+
+try:
+    # Load the model
+    model = load_model(model_path)
+    print("Model loaded successfully.")
+except FileNotFoundError:
+    print(f"Model file not found at {model_path}. Please ensure the file exists.")
+except Exception as e:
+    print(f"An error occurred while loading the model: {e}")
 
 # Streamlit UI
 st.title('Email/SMS Spam Classifier')
