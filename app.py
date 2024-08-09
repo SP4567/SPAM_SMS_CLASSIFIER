@@ -29,7 +29,7 @@ def transform_text(text):
     return " ".join(y)
 
 # Load vectorizer and model
-vectorizer = pickle.load(open('C:\\Users\\Suyash Pandey\\PycharmProjects\\Spam_SMS_Prediction\\vectorizer (3).pkl', 'rb'))
+vectorizer = pickle.load(open('vectorizer (3).pkl', 'rb'))
 model = load_model('Spam_classifier.h5')
 
 # Streamlit UI
