@@ -5,17 +5,9 @@ from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 import string
 from tensorflow.keras.models import load_model
-import os 
 
-nltk.download('punkt')
-# Define the directory where NLTK data should be downloaded
-nltk_data_dir = '/home/appuser/nltk_data'
-
-# Ensure the directory exists
-os.makedirs(nltk_data_dir, exist_ok=True)
-
-# Download stopwords to the specified directory
-nltk.download('stopwords', download_dir=nltk_data_dir)
+# Download stopwords if not already downloaded
+nltk.download('stopwords')
 
 # Function to transform the input text
 def transform_text(text):
@@ -38,39 +30,22 @@ def transform_text(text):
     return " ".join(y)
 
 # Load vectorizer and model
-# Get the directory of the current script
-base_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Build the full path to the vectorizer file
-vectorizer_path = os.path.join(base_dir, 'vectorizer (3).pkl')
-
-# Load the vectorizer
-with open(vectorizer_path, 'rb') as f:
-    vectorizer = pickle.load(f)
-base_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Build the full path to the model file
-model_path = os.path.join(base_dir, 'Spam_classifier.h5')
-
-try:
-    model = load_model(model_path)
-    st.success("Model loaded successfully!")
-except Exception as e:
-    st.error(f"Error loading model: {e}")
+vectorizer = pickle.load(open('vectorizer (1).pkl', 'rb'))
+model = load_model('Spam_classifier.h5')
 
 # Streamlit UI
 st.title('Email/SMS Spam Classifier')
 
 # Single input field
-input_sms = st.text_area("Enter the SMS/Email text to classify:")
+input_sms = st.text_input('Enter the message')
 
 # Prediction button
 if st.button('Predict'):
     if input_sms:
         transformed_sms = transform_text(input_sms)
         vector_input = vectorizer.transform([transformed_sms]).toarray()
-        result = model.predict([vector_input])  # Ensure to get the first element
-        if result[0] > 0.5:  # Assuming a binary classifier with sigmoid activation
+        result = model.predict(vector_input)[0][0]  # Ensure to get the first element
+        if result > 0.5:  # Assuming a binary classifier with sigmoid activation
             st.header("Spam")
         else:
             st.header("Not Spam")
