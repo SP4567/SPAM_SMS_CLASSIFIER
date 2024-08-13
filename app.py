@@ -14,6 +14,8 @@ nltk_data_dir = '/home/appuser/nltk_data'
 # Ensure the directory exists
 os.makedirs(nltk_data_dir, exist_ok=True)
 
+punkt_path = os.path.join(nltk_data_dir, 'tokenizers/punkt')
+
 # Download stopwords to the specified directory
 nltk.download('stopwords', download_dir=nltk_data_dir)
 
