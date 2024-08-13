@@ -11,8 +11,6 @@ nltk.download('punkt')
 # Define the directory where NLTK data should be downloaded
 nltk_data_dir = '/home/appuser/nltk_data'
 
-nltk.download('punkt', download_dir='/home/adminuser/nltk_data')
-
 # Ensure the directory exists
 os.makedirs(nltk_data_dir, exist_ok=True)
 
