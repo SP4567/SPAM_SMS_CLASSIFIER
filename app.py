@@ -7,14 +7,14 @@ import string
 from tensorflow.keras.models import load_model
 import os 
 
-nltk.download('punkt', download_dir='/home/adminuser/nltk_data')
+nltk.download('punkt')
 # Define the directory where NLTK data should be downloaded
 nltk_data_dir = '/home/appuser/nltk_data'
 
+nltk.download('punkt', download_dir='/home/adminuser/nltk_data')
+
 # Ensure the directory exists
 os.makedirs(nltk_data_dir, exist_ok=True)
-
-punkt_path = os.path.join(nltk_data_dir, 'tokenizers/punkt')
 
 # Download stopwords to the specified directory
 nltk.download('stopwords', download_dir=nltk_data_dir)
