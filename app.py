@@ -52,21 +52,25 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 # Build the full path to the model file
 model_path = os.path.join(base_dir, 'Spam_classifier.h5')
 
-model = load_model(model_path)
+try:
+    model = load_model(model_path)
+    st.success("Model loaded successfully!")
+except Exception as e:
+    st.error(f"Error loading model: {e}")
 
 # Streamlit UI
 st.title('Email/SMS Spam Classifier')
 
 # Single input field
-input_sms = st.text_input('Enter the message')
+input_sms = st.text_area("Enter the SMS/Email text to classify:")
 
 # Prediction button
 if st.button('Predict'):
     if input_sms:
         transformed_sms = transform_text(input_sms)
         vector_input = vectorizer.transform([transformed_sms]).toarray()
-        result = model.predict(vector_input)[0][0]  # Ensure to get the first element
-        if result > 0.5:  # Assuming a binary classifier with sigmoid activation
+        result = model.predict([vector_input])  # Ensure to get the first element
+        if result[0] > 0.5:  # Assuming a binary classifier with sigmoid activation
             st.header("Spam")
         else:
             st.header("Not Spam")
