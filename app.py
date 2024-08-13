@@ -7,7 +7,7 @@ import string
 from tensorflow.keras.models import load_model
 import os 
 
-nltk.download('punkt')
+nltk.download('punkt', download_dir='/home/adminuser/nltk_data')
 # Define the directory where NLTK data should be downloaded
 nltk_data_dir = '/home/appuser/nltk_data'
 
