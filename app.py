@@ -7,6 +7,8 @@ import string
 from tensorflow.keras.models import load_model
 
 # Download stopwords if not already downloaded
+
+nltk.download('punkt')
 nltk.download('stopwords')
 
 # Function to transform the input text
