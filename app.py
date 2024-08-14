@@ -8,7 +8,11 @@ from tensorflow.keras.models import load_model
 
 # Download necessary NLTK data
 nltk.download('punkt')
-nltk.download('stopwords')
+
+nltk_data_dir = '/home/appuser/nltk_data'
+os.makedirs(nltk_data_dir, exist_ok=True)
+nltk.data.path.append(nltk_data_dir)
+nltk.download('stopwords', download_dir=nltk_data_dir)
 
 # Function to preprocess the input text
 def transform_text(text):
@@ -27,8 +31,13 @@ def transform_text(text):
     return " ".join(y)
 
 # Load the vectorizer and the trained model
-vectorizer = pickle.load(open('vectorizer (1).pkl', 'rb'))
-model = load_model('Spam_classifier.h5')
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+vectorizer_path = os.path.join(base_dir, 'vectorizer (1).pkl')
+model_path = os.path.join(base_dir, 'Spam_classifier.h5')
+
+vectorizer = pickle.load(open(vectorizer_path, 'rb'))
+model = load_model(model_path)
 
 # Streamlit UI
 st.title('Email/SMS Spam Classifier')
