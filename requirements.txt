@@ -2,3 +2,4 @@ streamlit~=1.34.0
 nltk~=3.8.1
 tensorflow~=2.12.1
 scikit-learn~=1.5.1
+python~=3.12.5
