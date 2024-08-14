@@ -8,9 +8,8 @@ import os
 from tensorflow.keras.models import load_model
 
 # Download necessary NLTK data
-nltk.download('punkt')
-
 nltk_data_dir = '/home/appuser/nltk_data'
+nltk.download('punkt', download_dir=nltk_data_dir)
 os.makedirs(nltk_data_dir, exist_ok=True)
 nltk.data.path.append(nltk_data_dir)
 nltk.download('stopwords', download_dir=nltk_data_dir)
@@ -35,6 +34,10 @@ def transform_text(text):
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 vectorizer_path = os.path.join(base_dir, 'vectorizer (1).pkl')
+
+with open(vectorizer_path, 'rb') as f:
+    vectorizer = pickle.load(f) 
+    
 model_path = os.path.join(base_dir, 'Spam_classifier.h5')
 
 vectorizer = pickle.load(open(vectorizer_path, 'rb'))
