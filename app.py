@@ -4,6 +4,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 import string
+import os 
 from tensorflow.keras.models import load_model
 
 # Download necessary NLTK data
