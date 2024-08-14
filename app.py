@@ -6,48 +6,50 @@ from nltk.stem.porter import PorterStemmer
 import string
 from tensorflow.keras.models import load_model
 
-# Download stopwords if not already downloaded
-
+# Download necessary NLTK data
 nltk.download('punkt')
 nltk.download('stopwords')
 
-# Function to transform the input text
+# Function to preprocess the input text
 def transform_text(text):
-    text = text.lower()
-    text = nltk.word_tokenize(text)
-    y = []
-    for i in text:
-        if i.isalnum():
-            y.append(i)
-    text = y[:]
-    y.clear()
-    for i in text:
-        if i not in stopwords.words('english') and i not in string.punctuation:
-            y.append(i)
-    text = y[:]
-    y.clear()
+    text = text.lower()  # Convert to lowercase
+    text = nltk.word_tokenize(text)  # Tokenize the text
+    
+    y = [word for word in text if word.isalnum()]  # Remove non-alphanumeric characters
+    
+    # Remove stopwords and punctuation
+    y = [word for word in y if word not in stopwords.words('english') and word not in string.punctuation]
+    
+    # Apply stemming
     ps = PorterStemmer()
-    for i in text:
-        y.append(ps.stem(i))
+    y = [ps.stem(word) for word in y]
+    
     return " ".join(y)
 
-# Load vectorizer and model
+# Load the vectorizer and the trained model
 vectorizer = pickle.load(open('vectorizer (1).pkl', 'rb'))
 model = load_model('Spam_classifier.h5')
 
 # Streamlit UI
 st.title('Email/SMS Spam Classifier')
 
-# Single input field
+# Input field for message
 input_sms = st.text_input('Enter the message')
 
-# Prediction button
+# Predict button
 if st.button('Predict'):
     if input_sms:
+        # Preprocess the input message
         transformed_sms = transform_text(input_sms)
+        
+        # Vectorize the input
         vector_input = vectorizer.transform([transformed_sms]).toarray()
-        result = model.predict(vector_input)[0][0]  # Ensure to get the first element
-        if result > 0.5:  # Assuming a binary classifier with sigmoid activation
+        
+        # Predict the class
+        result = model.predict(vector_input)[0][0]  # Get the prediction
+        
+        # Display the result
+        if result > 0.5:  # Assuming a threshold of 0.5 for spam
             st.header("Spam")
         else:
             st.header("Not Spam")
